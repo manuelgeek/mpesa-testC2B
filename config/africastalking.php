@@ -1,9 +1,9 @@
 <?php
 return [
 
-    'username' => 'appslab',
+    'username' => env('AFR_USERNAME'),
 
-    'api_key' => 'c1406b8e56f2fa5d6103255737e93fc9a40941330065f19c6fcbd1d8c5bc37da',
+    'api_key' => env('AFR_API_KEY'),
 
     'sandbox' => false,
 
