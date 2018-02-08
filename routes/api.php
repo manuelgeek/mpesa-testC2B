@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+///C2B
 
-Route::any('/validate', 'test@validatation');
-Route::any('/confirm', 'test@confirm');
+Route::any('/validate', 'C2BController@validatation');
+Route::any('/confirm', 'C2BController@confirm');
+
+//STK callback
+Route::any('/payment', 'STKController@payment');

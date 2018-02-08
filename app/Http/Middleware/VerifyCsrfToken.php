@@ -17,5 +17,7 @@ class VerifyCsrfToken extends Middleware
         'api/validate',
         'api/confirm',
         'confirm/*',
+        '/payment'
+        '/api/payment'
     ];
 }

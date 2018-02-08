@@ -12,7 +12,7 @@ return [
     | Possible values: sandbox | production
     */
 
-    'status' => 'production',
+    'status' => 'sandbox',
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
 
     'consumer_secret' => 'OE3Ayz7f3Ry503x2',
 
-    'production_endpoint' => 'https://production.safaricom.co.ke/',
+    'production_endpoint' => 'https://api.safaricom.co.ke/',
 
     'initiator' => 'testapi0297',
 
@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'stk_callback' => 'http://8794364f.ngrok.io/api/check' ,
+    'stk_callback' => 'http://d504ab0e.ngrok.io/api/check' ,
 //'http://payments.smodavproductions.com/checkout.php'
     /*
     |--------------------------------------------------------------------------

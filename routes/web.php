@@ -18,4 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/mpesa', 'test@index')->name('mpesa');
+Route::get('/mpesa', 'STKController@index')->name('mpesa');
+
+
+//check API troutes

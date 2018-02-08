@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1bd90fd1281c8b4f4c1883913f77f9eb",
-    "content-hash": "65475fa34343a9a473e802ce08547b33",
+    "hash": "ca7739eb58a07aae08510e2587d3a108",
+    "content-hash": "f1d3703cef7e51d41201ecba4cf94cea",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -319,6 +319,60 @@
                 "trusted proxy"
             ],
             "time": "2017-06-15 17:19:42"
+        },
+        {
+            "name": "freddiedfre/africas_talking_laravel_5",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/freddiedfre/AfricasTalkingLaravel5.git",
+                "reference": "212be67d43c33ee4c1f20f629282458ad2016021"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/freddiedfre/AfricasTalkingLaravel5/zipball/212be67d43c33ee4c1f20f629282458ad2016021",
+                "reference": "212be67d43c33ee4c1f20f629282458ad2016021",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": "~5.5|~7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FreddieDfre\\AfricasTalkingLaravel5\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fredrick A",
+                    "email": "fredrickanyera@gmail.com",
+                    "homepage": "https://github.com/freddiedfre",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package for integrating Africa's Talking SMS gateway into a Laravel 5 App.",
+            "homepage": "https://github.com/freddiedfre/AfricasTalkingLaravel5",
+            "keywords": [
+                "Africastalking",
+                "sms gateway"
+            ],
+            "time": "2017-10-05 07:38:27"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1539,6 +1593,72 @@
                 "uuid"
             ],
             "time": "2017-09-22 20:46:04"
+        },
+        {
+            "name": "smodav/africastalking",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SmoDav/africastalking.git",
+                "reference": "82702b57e859173041578f48f5b537f08bcbf690"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SmoDav/africastalking/zipball/82702b57e859173041578f48f5b537f08bcbf690",
+                "reference": "82702b57e859173041578f48f5b537f08bcbf690",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.2",
+                "illuminate/support": "^5.0",
+                "nesbot/carbon": "~1.21",
+                "php": ">=5.6.0",
+                "predis/predis": "^1.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "~5.7|~6.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SmoDav\\AfricasTalking\\Laravel\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "SMS": "SmoDav\\AfricasTalking\\Laravel\\Facades\\SMS",
+                        "Subscriber": "SmoDav\\AfricasTalking\\Laravel\\Facades\\Subscriber"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/AfricasTalking/Support/helpers.php",
+                    "src/AfricasTalking/Support/constants.php"
+                ],
+                "psr-4": {
+                    "SmoDav\\AfricasTalking\\": "src/AfricasTalking/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "SmoDav",
+                    "email": "smodavprivate@gmail.com"
+                }
+            ],
+            "description": "Africa's Talking API package",
+            "keywords": [
+                "africas talking",
+                "calls",
+                "payments",
+                "sms",
+                "ussd"
+            ],
+            "time": "2017-09-29 15:50:50"
         },
         {
             "name": "smodav/mpesa",
@@ -4259,7 +4379,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "freddiedfre/africas_talking_laravel_5": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
