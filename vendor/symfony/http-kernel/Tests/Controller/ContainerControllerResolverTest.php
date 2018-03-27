@@ -24,6 +24,10 @@ class ContainerControllerResolverTest extends ControllerResolverTest
     {
         $container = $this->createMockContainer();
         $container->expects($this->once())
+            ->method('has')
+            ->with('foo')
+            ->will($this->returnValue(true));
+        $container->expects($this->once())
             ->method('get')
             ->with('foo')
             ->will($this->returnValue($this))
@@ -137,17 +141,7 @@ class ContainerControllerResolverTest extends ControllerResolverTest
         $request = Request::create('/');
         $request->attributes->set('_controller', array(ImpossibleConstructController::class, 'action'));
 
-        if (\PHP_VERSION_ID < 70100) {
-            ErrorHandler::register();
-            try {
-                $resolver->getController($request);
-            } finally {
-                restore_error_handler();
-                restore_exception_handler();
-            }
-        } else {
-            $resolver->getController($request);
-        }
+        $resolver->getController($request);
     }
 
     public function testNonInstantiableControllerWithCorrespondingService()
@@ -176,6 +170,57 @@ class ContainerControllerResolverTest extends ControllerResolverTest
     }
 
     /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage Controller "app.my_controller" cannot be fetched from the container because it is private. Did you forget to tag the service with "controller.service_arguments"?
+     */
+    public function testExceptionWhenUsingRemovedControllerService()
+    {
+        $container = $this->getMockBuilder(Container::class)->getMock();
+        $container->expects($this->at(0))
+            ->method('has')
+            ->with('app.my_controller')
+            ->will($this->returnValue(false))
+        ;
+
+        $container->expects($this->atLeastOnce())
+            ->method('getRemovedIds')
+            ->with()
+            ->will($this->returnValue(array('app.my_controller' => true)))
+        ;
+
+        $resolver = $this->createControllerResolver(null, $container);
+
+        $request = Request::create('/');
+        $request->attributes->set('_controller', 'app.my_controller');
+        $resolver->getController($request);
+    }
+
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage Controller "app.my_controller" cannot be called without a method name. Did you forget an "__invoke" method?
+     */
+    public function testExceptionWhenUsingControllerWithoutAnInvokeMethod()
+    {
+        $container = $this->getMockBuilder(Container::class)->getMock();
+        $container->expects($this->once())
+            ->method('has')
+            ->with('app.my_controller')
+            ->will($this->returnValue(true))
+        ;
+        $container->expects($this->once())
+            ->method('get')
+            ->with('app.my_controller')
+            ->will($this->returnValue(new ImpossibleConstructController('toto', 'controller')))
+        ;
+
+        $resolver = $this->createControllerResolver(null, $container);
+
+        $request = Request::create('/');
+        $request->attributes->set('_controller', 'app.my_controller');
+        $resolver->getController($request);
+    }
+
+    /**
      * @dataProvider getUndefinedControllers
      */
     public function testGetControllerOnNonUndefinedFunction($controller, $exceptionName = null, $exceptionMessage = null)
@@ -197,9 +242,9 @@ class ContainerControllerResolverTest extends ControllerResolverTest
     public function getUndefinedControllers()
     {
         return array(
-            array('foo', \LogicException::class, '/Unable to parse the controller name "foo"\./'),
+            array('foo', \LogicException::class, '/Controller not found: service "foo" does not exist\./'),
             array('oof::bar', \InvalidArgumentException::class, '/Class "oof" does not exist\./'),
-            array('stdClass', \LogicException::class, '/Unable to parse the controller name "stdClass"\./'),
+            array('stdClass', \LogicException::class, '/Controller not found: service "stdClass" does not exist\./'),
             array(
                 'Symfony\Component\HttpKernel\Tests\Controller\ControllerResolverTest::bar',
                 \InvalidArgumentException::class,

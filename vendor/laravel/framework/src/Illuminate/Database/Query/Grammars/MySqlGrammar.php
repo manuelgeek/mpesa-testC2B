@@ -10,6 +10,13 @@ use Illuminate\Database\Query\JsonExpression;
 class MySqlGrammar extends Grammar
 {
     /**
+     * The grammar specific operators.
+     *
+     * @var array
+     */
+    protected $operators = ['sounds like'];
+
+    /**
      * The components that make up a select clause.
      *
      * @var array
@@ -145,9 +152,9 @@ class MySqlGrammar extends Grammar
         return collect($values)->map(function ($value, $key) {
             if ($this->isJsonSelector($key)) {
                 return $this->compileJsonUpdateColumn($key, new JsonExpression($value));
-            } else {
-                return $this->wrap($key).' = '.$this->parameter($value);
             }
+
+            return $this->wrap($key).' = '.$this->parameter($value);
         })->implode(', ');
     }
 

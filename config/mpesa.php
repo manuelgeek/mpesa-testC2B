@@ -22,13 +22,13 @@ return [
     | These are the credentials to be used to transact with the M-Pesa API
     */
 
-    'consumer_key' => 'yVVT1nh8xJ6GNl23PDvu56pADTEcEGV2',
+    'consumer_key' => '82oqQpu9SLNDM08vZUOqIhv6KI0BZK36',
 
-    'consumer_secret' => 'OE3Ayz7f3Ry503x2',
+    'consumer_secret' => 'Q4MHU9tQSNQYHDAb',
 
-    'production_endpoint' => 'https://api.safaricom.co.ke/',
+    'production_endpoint' => '',
 
-    'initiator' => 'testapi0297',
+    'initiator' => 'safaricom.25',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,8 +51,8 @@ return [
     |
     */
 
-    'stk_callback' => 'http://d504ab0e.ngrok.io/api/check' ,
-//'http://payments.smodavproductions.com/checkout.php'
+    'stk_callback' => 'http://payments.smodavproductions.com/checkout.php',
+
     /*
     |--------------------------------------------------------------------------
     | Identity Validation Callback URL

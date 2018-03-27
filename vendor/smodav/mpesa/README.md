@@ -51,8 +51,9 @@ include the service provider and its alias within your `config/app.php`.
 
 'aliases' => [
     'STK'       => SmoDav\Mpesa\Laravel\Facades\STK::class,
+    'Simulate'  => SmoDav\Mpesa\Laravel\Facades\Simulate::class,
     'Registrar' => SmoDav\Mpesa\Laravel\Facades\Registrar::class,
-    'Identity' => SmoDav\Mpesa\Laravel\Facades\Identity::class,
+    'Identity'  => SmoDav\Mpesa\Laravel\Facades\Identity::class,
 ],
 ```
 
@@ -94,6 +95,7 @@ $engine = new Core(new Client, $config, $cache);
 
 ```
 
+
 ### URL Registration
 #### submit(shortCode = null, confirmationURL = null, validationURL = null, onTimeout = 'Completed|Cancelled')
 
@@ -129,6 +131,46 @@ $response = \Registrar::register(600000)
 $response = \Registrar::submit(600000, 'https://payments.smodavproductions.com/checkout.php', 'https://payments.smodavproductions.com/checkout.php');
 ```
 
+
+### Simulate Transaction
+#### push(amount = null, number = null, reference = null, command = null)
+
+Initiate an C2B simulation transaction request.
+
+##### Vanilla
+
+```php
+use SmoDav\Mpesa\C2B\Simulate;
+
+$simulate = new Simulate($engine);
+    
+// fluent implementation
+$response = $simulate->request(10)
+    ->from(254722000000)
+    ->usingReference('f4u239fweu')
+    ->setCommand(Simulate::CUSTOMER_PAYBILL_ONLINE)
+    ->push();
+        
+// one function
+$response = $simulate->push(10, 254722000000, 'f4u239fweu', Simulate::CUSTOMER_PAYBILL_ONLINE);
+```
+
+##### Laravel
+
+```php
+// fluent implementation
+$response = \Simulate::request(10)
+    ->from(254722000000)
+    ->usingReference('f4u239fweu')
+    ->setCommand(Simulate::CUSTOMER_PAYBILL_ONLINE)
+    ->push();
+        
+// one function
+$response = \Simulate::push(10, 254722000000, 'f4u239fweu', Simulate::CUSTOMER_PAYBILL_ONLINE);
+
+```
+
+
 ### STK PUSH
 #### push(amount = null, number = null, reference = null, description = null)
 
@@ -162,6 +204,29 @@ $response = \STK::request(10)
         
 // one function
 $response = \STK::push(10, 254722000000, 'f4u239fweu', 'Test Payment');
+
+```
+
+
+### STK PUSH Transaction Validation
+#### validate(merchantReferenceId)
+
+Validate a C2B STK Push transaction.
+
+##### Vanilla
+
+```php
+use SmoDav\Mpesa\C2B\STK;
+
+$stk = new STK($engine);
+    
+$response = $stk->validate('ws_CO_16022018125');
+```
+
+##### Laravel
+
+```php
+$response = \STK::validate('ws_CO_16022018125');
 
 ```
 

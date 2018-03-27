@@ -10,10 +10,16 @@ class C2BController extends Controller
 {
     public function index()
     {
-    	return $response = \Registrar::register(734328)
-                    ->onConfirmation('http://97b46a78.ngrok.io/api/confirm')
-                    ->onValidation('http://97b46a78.ngrok.io/api/validate')
+    	$response = \Registrar::register(603022)
+                    ->onConfirmation('https://4ddb5895.ngrok.io/api/confirm')
+                    ->onValidation('https://4ddb5895.ngrok.io/api/validate')
                     ->submit();
+
+        if($response)
+        {
+            $payload = json_decode(json_encode($response),true);
+            return $payload;
+        }
 
     }
 
@@ -101,4 +107,19 @@ class C2BController extends Controller
 
     //https://www.franktekmicrosystems.com/mpesa-api-documentation-paybill-lipa-na-mpesa.html
 
+    public function simulate()
+    {
+        $response = \Simulate::request(10)
+                                        ->from(254722000000)
+                                        ->usingReference('f4u239fweu')
+                                        ->setCommand('CustomerPayBillOnline')
+                                        ->push();
+
+        // $response = \Simulate::push(10, 254722000000, 'f4u239fweu', Simulate::CUSTOMER_PAYBILL_ONLINE);
+        if($response)
+        {
+            $payload = json_decode(json_encode($response),true);
+            return $payload;
+        }
+    }
 }

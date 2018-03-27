@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/mpesa', 'STKController@index')->name('mpesa');
+Route::get('/c2b', 'C2BController@index');
+Route::get('/simulate', 'C2BController@simulate');
 
 
 //check API troutes
